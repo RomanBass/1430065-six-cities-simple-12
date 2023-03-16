@@ -1,5 +1,5 @@
 import Card from '../../components/card/card';
-import Header from '../../components/header/header';
+import Logo from '../../components/logo/logo';
 import Tabs from '../../components/tabs/tabs';
 
 type MainScreenProps = {
@@ -9,8 +9,31 @@ type MainScreenProps = {
 function Main({ rentalOffersNumber }: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
-      <Header/>
-      <Tabs/>
+      <header className="header">
+        <div className="container">
+          <div className="header__wrapper">
+            <div className="header__left">
+              <Logo />
+            </div>
+            <nav className="header__nav">
+              <ul className="header__nav-list">
+                <li className="header__nav-item user">
+                  <div className="header__nav-profile">
+                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                  </div>
+                </li>
+                <li className="header__nav-item">
+                  <a className="header__nav-link" href="/">
+                    <span className="header__signout">Sign out</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </header>
+      <Tabs />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
 
