@@ -2,10 +2,7 @@ import { Navigate, useParams } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import { Offers } from '../../types/offer';
 import { Reviews } from '../../types/review';
-
-const convertMarkToPercents = (rating: number): string => `${rating * 20}%`;
-const convertJSDateToISO = (jsDate: string): string => (new Date(jsDate)).toISOString().substring(0, 10);
-const convertJSDateToMothYear = (jsDate: string): string => `${(new Date(jsDate)).toLocaleString('en', { month: 'long' })} ${(new Date(jsDate)).toISOString().substring(8, 10)}`;
+import {convertMarkToPercents, convertJSDateToISO, convertJSDateToMothYear} from '../../utils';
 
 type PropertyProps = {
   offers: Offers;
@@ -57,7 +54,7 @@ function Property({ offers, reviews }: PropertyProps): JSX.Element {
               className="reviews__time"
               dateTime={convertJSDateToISO(review.date)}
             >
-              April 2019 {convertJSDateToMothYear(review.date)}
+              {convertJSDateToMothYear(review.date)}
             </time>
           </div>
         </li>
