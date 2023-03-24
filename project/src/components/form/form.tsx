@@ -1,15 +1,9 @@
 import { useState, ChangeEvent, Fragment } from 'react';
-
-const ratingList: { starNumber: number; type: string }[] = [
-  { starNumber: 5, type: 'perfect' },
-  { starNumber: 4, type: 'good' },
-  { starNumber: 3, type: 'not bad' },
-  { starNumber: 2, type: 'baddly' },
-  { starNumber: 1, type: 'terribly' }
-];
+import { ratingList, initialReviewData } from '../../const';
+import { isReviewCorrect } from '../../utils';
 
 function Form(): JSX.Element {
-  const [formData, setFormData] = useState({ rating: 0, review: '' });
+  const [formData, setFormData] = useState({ rating: initialReviewData.RATING, review: initialReviewData.REVIEW });
 
   const changeReview = (evt: ChangeEvent) => {
     setFormData({ ...formData, review: (evt.target as HTMLTextAreaElement).value });
@@ -60,7 +54,7 @@ function Form(): JSX.Element {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={formData.rating === 0 || formData.review.length < 50 || formData.review.length > 300}>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={isReviewCorrect(formData.review, formData.rating)}>Submit</button>
       </div>
     </form>
   );
