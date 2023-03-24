@@ -1,16 +1,42 @@
-import Card from '../../components/card/card';
-import Header from '../../components/header/header';
+import CardList from '../../components/card-list/card-list';
+import Logo from '../../components/logo/logo';
 import Tabs from '../../components/tabs/tabs';
+import { offers } from '../../mocks/offers';
+import {useState} from 'react';
 
 type MainScreenProps = {
   rentalOffersNumber: number;
 }
 
 function Main({ rentalOffersNumber }: MainScreenProps): JSX.Element {
+  const [, setActiveCard] = useState<number|null>(null);
   return (
     <div className="page page--gray page--main">
-      <Header/>
-      <Tabs/>
+      <header className="header">
+        <div className="container">
+          <div className="header__wrapper">
+            <div className="header__left">
+              <Logo />
+            </div>
+            <nav className="header__nav">
+              <ul className="header__nav-list">
+                <li className="header__nav-item user">
+                  <div className="header__nav-profile">
+                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                  </div>
+                </li>
+                <li className="header__nav-item">
+                  <a className="header__nav-link" href="/">
+                    <span className="header__signout">Sign out</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </header>
+      <Tabs />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
 
@@ -35,11 +61,7 @@ function Main({ rentalOffersNumber }: MainScreenProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
+                <CardList offers={offers} setActiveCard={setActiveCard}/>
               </div>
             </section>
             <div className="cities__right-section">
