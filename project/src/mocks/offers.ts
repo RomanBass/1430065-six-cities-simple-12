@@ -27,15 +27,15 @@ export const offers: Offer[] = [
     ],
     isPremium: false,
     location: {
-      'latitude': 52.35514938496378,
-      'longitude': 4.673877537499948,
+      'latitude': 52.3909553943508,
+      'longitude': 4.85309666406198,
       'zoom': 8,
     },
     maxAdults: 1,
     previewImage: 'img/apartment-01.jpg',
     price: 110,
     rating: 1.8,
-    title: 'Amsterdam hotel title',
+    title: 'Amsterdam-1 hotel title',
     type: 'Apartment',
   },
 
@@ -43,11 +43,11 @@ export const offers: Offer[] = [
     bedrooms: 2,
     city: {
       location: {
-        latitude: 22.370216,
-        longitude: 24.895168,
+        latitude: 52.370216,
+        longitude: 4.895168,
         zoom: 10,
       },
-      name: 'Beijing',
+      name: 'Amsterdam',
     },
     description: 'Beijing hotel description',
     goods: [
@@ -65,15 +65,15 @@ export const offers: Offer[] = [
     ],
     isPremium: true,
     location: {
-      'latitude': 52.35514938496378,
-      'longitude': 4.673877537499948,
+      'latitude': 52.3609553943508,
+      'longitude': 4.85309666406198,
       'zoom': 8,
     },
     maxAdults: 2,
     previewImage: 'img/apartment-02.jpg',
     price: 120,
     rating: 2.8,
-    title: 'Beijing hotel title',
+    title: 'Amsterdam-2 hotel title',
     type: 'Hostel',
   },
 
@@ -81,11 +81,11 @@ export const offers: Offer[] = [
     bedrooms: 3,
     city: {
       location: {
-        latitude: 32.370216,
-        longitude: 34.895168,
+        latitude: 52.370216,
+        longitude: 4.895168,
         zoom: 10,
       },
-      name: 'Caen',
+      name: 'Amsterdam',
     },
     description: 'Caen hotel description',
     goods: [
@@ -103,15 +103,15 @@ export const offers: Offer[] = [
     ],
     isPremium: true,
     location: {
-      'latitude': 52.35514938496378,
-      'longitude': 4.673877537499948,
+      'latitude': 52.3909553943508,
+      'longitude': 4.929309666406198,
       'zoom': 8,
     },
     maxAdults: 3,
     previewImage: 'img/apartment-03.jpg',
     price: 130,
     rating: 3.8,
-    title: 'Caen hotel title',
+    title: 'Amsterdam-3 hotel title',
     type: 'Villa',
   },
 
@@ -119,11 +119,11 @@ export const offers: Offer[] = [
     bedrooms: 4,
     city: {
       location: {
-        latitude: 42.370216,
-        longitude: 44.895168,
+        latitude: 52.370216,
+        longitude: 4.895168,
         zoom: 10,
       },
-      name: 'Delhi',
+      name: 'Amsterdam',
     },
     description: 'Delhi hotel description',
     goods: [
@@ -141,15 +141,15 @@ export const offers: Offer[] = [
     ],
     isPremium: false,
     location: {
-      'latitude': 52.35514938496378,
-      'longitude': 4.673877537499948,
+      'latitude': 52.3809553943508,
+      'longitude': 4.939309666406198,
       'zoom': 8,
     },
     maxAdults: 4,
     previewImage: 'img/apartment-04.jpg',
     price: 140,
     rating: 4.8,
-    title: 'Dehli hotel title',
+    title: 'Amsterdam-4 hotel title',
     type: 'Boongalo',
   },
 
