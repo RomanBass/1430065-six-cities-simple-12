@@ -3,13 +3,22 @@ import Logo from '../../components/logo/logo';
 import Tabs from '../../components/tabs/tabs';
 import { offers } from '../../mocks/offers';
 import {useState} from 'react';
+import Map from '../../components/map/map';
+import {Offer} from '../../types/offer';
 
 type MainScreenProps = {
   rentalOffersNumber: number;
 }
 
 function Main({ rentalOffersNumber }: MainScreenProps): JSX.Element {
-  const [, setActiveCard] = useState<number|null>(null);
+
+  const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(undefined);
+
+  const onListCardHover = (listCardId: number | null) => {
+    const currentOffer = offers.find((offer) => offer.id === listCardId);
+    setSelectedOffer(currentOffer);
+  };
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -61,11 +70,11 @@ function Main({ rentalOffersNumber }: MainScreenProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <CardList offers={offers} setActiveCard={setActiveCard}/>
+                <CardList offers={offers} setActiveCard={onListCardHover}/>
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map"><Map offer={offers[0]} offers={offers} selectedOffer={selectedOffer}/></section>
             </div>
           </div>
         </div>
