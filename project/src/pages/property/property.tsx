@@ -3,7 +3,8 @@ import Form from '../../components/form/form';
 import Logo from '../../components/logo/logo';
 import { Offers } from '../../types/offer';
 import { Reviews } from '../../types/review';
-import {convertMarkToPercents, convertJSDateToISO, convertJSDateToMothYear} from '../../utils';
+import {convertMarkToPercents} from '../../utils';
+import ReviewsList from '../../components/reviews-list/reviews-list';
 
 type PropertyProps = {
   offers: Offers;
@@ -29,37 +30,6 @@ function Property({ offers, reviews }: PropertyProps): JSX.Element {
     const renderGoods = currentOffer.goods.map((goodsItem) =>
       <li key={goodsItem} className="property__inside-item">{goodsItem}</li>
     );
-
-    const renderReviews = reviews.map((review) =>
-      (
-        <li key={review.id} className="reviews__item">
-          <div className="reviews__user user">
-            <div className="reviews__avatar-wrapper user__avatar-wrapper">
-              <img className="reviews__avatar user__avatar" src={review.user.avatarUrl} width="54" height="54" alt="Reviews avatar" />
-            </div>
-            <span className="reviews__user-name">
-              {review.user.name}
-            </span>
-          </div>
-          <div className="reviews__info">
-            <div className="reviews__rating rating">
-              <div className="reviews__stars rating__stars">
-                <span style={{ width: convertMarkToPercents(review.rating) }}></span>
-                <span className="visually-hidden">{review.rating}</span>
-              </div>
-            </div>
-            <p className="reviews__text">
-              {review.comment}
-            </p>
-            <time
-              className="reviews__time"
-              dateTime={convertJSDateToISO(review.date)}
-            >
-              {convertJSDateToMothYear(review.date)}
-            </time>
-          </div>
-        </li>
-      ));
 
     return (
       <div className="page">
@@ -154,7 +124,7 @@ function Property({ offers, reviews }: PropertyProps): JSX.Element {
                 <section className="property__reviews reviews">
                   <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
                   <ul className="reviews__list">
-                    {renderReviews}
+                    <ReviewsList reviews={reviews}/>
                   </ul>
                   <Form/>
                 </section>
