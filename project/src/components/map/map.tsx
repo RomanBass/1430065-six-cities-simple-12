@@ -17,7 +17,6 @@ const defaultCustomIcon = new Icon({
   iconAnchor: [14, 40]
 });
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const currentCustomIcon = new Icon({
   iconUrl: URL_MARKER_CURRENT,
   iconSize: [28, 40],
