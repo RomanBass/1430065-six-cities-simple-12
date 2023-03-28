@@ -1,12 +1,13 @@
 import { Navigate, useParams } from 'react-router-dom';
 import Form from '../../components/form/form';
 import Logo from '../../components/logo/logo';
-import { Offers } from '../../types/offer';
+import { Offers, Offer } from '../../types/offer';
 import { Reviews } from '../../types/review';
 import {convertMarkToPercents} from '../../utils';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Map from '../../components/map/map';
 import CardList from '../../components/card-list/card-list';
+import {useState} from 'react';
 
 type PropertyProps = {
   offers: Offers;
@@ -14,6 +15,12 @@ type PropertyProps = {
 }
 function Property({ offers, reviews }: PropertyProps): JSX.Element {
   const { id } = useParams();
+  const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(undefined);
+
+  const onListCardHover = (listCardId: number | null) => {
+    const currentOffer = offers.find((offer) => offer.id === listCardId);
+    setSelectedOffer(currentOffer);
+  };
 
   if (id && Array.isArray(offers)) {
     const currentOffer = offers.find((offer) => offer.id === +id);
@@ -133,14 +140,14 @@ function Property({ offers, reviews }: PropertyProps): JSX.Element {
               </div>
             </div>
             <section className="property__map map">
-              <Map offer={offers[0]} offers={offers} selectedOffer={currentOffer}/>
+              <Map offer={offers[0]} offers={offers} selectedOffer={selectedOffer ? selectedOffer : currentOffer}/>
             </section>
           </section>
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
-                <CardList offers={offers.filter((offer) => offer !== currentOffer)} setActiveCard={() => null}/>
+                <CardList offers={offers.filter((offer) => offer !== currentOffer)} setActiveCard={onListCardHover}/>
               </div>
             </section>
           </div>
