@@ -1,6 +1,6 @@
 import CardList from '../../components/card-list/card-list';
 import Logo from '../../components/logo/logo';
-import Tabs from '../../components/tabs/tabs';
+import Tabs from '../../components/cities-list/cities-list';
 import { offers } from '../../mocks/offers';
 import {useState} from 'react';
 import Map from '../../components/map/map';
