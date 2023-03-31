@@ -70,7 +70,7 @@ function Main({ rentalOffersNumber }: MainScreenProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <CardList offers={offers} setActiveCard={onListCardHover}/>
+                <CardList setActiveCard={onListCardHover} propertyId={null}/>
               </div>
             </section>
             <div className="cities__right-section">
