@@ -8,16 +8,15 @@ import { Offers } from '../../types/offer';
 import { Reviews } from '../../types/review';
 
 type AppScreenProps = {
-  rentalOffersNumber: number;
   offers: Offers;
   reviews: Reviews;
 }
 
-function App({ rentalOffersNumber, offers, reviews }: AppScreenProps): JSX.Element {
+function App({offers, reviews }: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Root} element={<Main rentalOffersNumber={rentalOffersNumber} />}/>
+        <Route path={AppRoute.Root} element={<Main />}/>
         <Route path={AppRoute.Login} element={<Login/>}/>
         <Route path={AppRoute.Offer} element={<Property offers={offers} reviews={reviews}/>}/>
         <Route path={AppRoute.WrongPath} element={<NotFound/>}/>

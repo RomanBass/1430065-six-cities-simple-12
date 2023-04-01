@@ -14,7 +14,6 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <App
-        rentalOffersNumber={offers.length}
         offers={offers}
         reviews={reviews}
       />
