@@ -1,15 +1,23 @@
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
-import { Icon, Marker } from 'leaflet';
+import { Icon, Marker, LayerGroup } from 'leaflet';
 import { useRef, useEffect } from 'react';
-import { Offer, Offers } from '../../types/offer';
+import { Offer} from '../../types/offer';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
+import { useAppSelector } from '../../hooks';
 
 type MapProps = {
-  offer: Offer;
-  offers: Offers;
   selectedOffer: Offer | undefined;
 }
+
+const defaultCity = {
+  location: {
+    latitude: 52.370216,
+    longitude: 4.895168,
+    zoom: 10,
+  },
+  name: 'Amsterdam',
+};
 
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
@@ -24,14 +32,21 @@ const currentCustomIcon = new Icon({
 });
 
 function Map(props: MapProps): JSX.Element {
-  const { offer, offers, selectedOffer } = props;
+  const { selectedOffer } = props;
   const mapRef = useRef(null);
-  const map = useMap(mapRef, offer);
+
+  const offersBySelectedCity = useAppSelector((state) => state.offersList);
+  const city = offersBySelectedCity[0]?.city || defaultCity;
+  const map = useMap(mapRef, city);
 
   useEffect(() => {
 
+    const layerMarkers = new LayerGroup();
     if (map) {
-      offers.forEach((property) => {
+
+      map.panTo([city.location.latitude, city.location.longitude]);
+
+      offersBySelectedCity.forEach((property) => {
         const marker = new Marker({
           lat: property.location.latitude,
           lng: property.location.longitude,
@@ -39,12 +54,14 @@ function Map(props: MapProps): JSX.Element {
 
         marker.setIcon(selectedOffer !== undefined && property.id === selectedOffer.id
           ? currentCustomIcon
-          : defaultCustomIcon).addTo(map);
+          : defaultCustomIcon).addTo(layerMarkers);
 
       });
+      layerMarkers.addTo(map);
     }
+    return () => {layerMarkers.remove();};
 
-  }, [map, offers, selectedOffer]);
+  }, [city, map, offersBySelectedCity, selectedOffer ]);
 
   return (
     <div style={{ height: '100%' }} ref={mapRef} ></div>

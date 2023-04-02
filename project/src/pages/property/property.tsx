@@ -140,7 +140,7 @@ function Property({ offers, reviews }: PropertyProps): JSX.Element {
               </div>
             </div>
             <section className="property__map map">
-              <Map offer={offers[0]} offers={offers} selectedOffer={selectedOffer ? selectedOffer : currentOffer}/>
+              <Map selectedOffer={selectedOffer ? selectedOffer : currentOffer}/>
             </section>
           </section>
           <div className="container">
