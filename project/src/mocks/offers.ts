@@ -153,4 +153,80 @@ export const offers: Offer[] = [
     type: 'Boongalo',
   },
 
+  {
+    bedrooms: 11,
+    city: {
+      location: {
+        latitude: 48.853410,
+        longitude: 2.348800,
+        zoom: 10,
+      },
+      name: 'Paris',
+    },
+    description: 'Paris 1st hotel description',
+    goods: [
+      'Heating', 'Kitchen', 'Off-1 goods',
+    ],
+    host: {
+      avatarUrl: 'img/img_avatar_1.png',
+      id: 3,
+      isPro: true,
+      name: 'Angelina',
+    },
+    id: 5,
+    images: [
+      'img/off1_img1.png', 'img/off1_img2.png', 'img/off1_img3.png', 'img/off1_img4.png', 'img/off1_img5.png', 'img/off1_img6.png',
+    ],
+    isPremium: false,
+    location: {
+      'latitude': 48.8534103943508,
+      'longitude': 2.34880066406198,
+      'zoom': 10,
+    },
+    maxAdults: 1,
+    previewImage: 'img/apartment-01.jpg',
+    price: 210,
+    rating: 5.8,
+    title: 'Paris 1st hotel title',
+    type: 'Apartment',
+  },
+
+  {
+    bedrooms: 12,
+    city: {
+      location: {
+        latitude: 48.853410,
+        longitude: 2.348800,
+        zoom: 10,
+      },
+      name: 'Paris',
+    },
+    description: 'Paris 2nd hotel description',
+    goods: [
+      'Heating', 'Wi-Fi', 'Off-2 good',
+    ],
+    host: {
+      avatarUrl: 'img/img_avatar_2.png',
+      id: 5,
+      isPro: false,
+      name: 'John',
+    },
+    id: 6,
+    images: [
+      'img/off2_img1.png', 'img/off2_img2.png', 'img/off2_img3.png', 'img/off2_img4.png', 'img/off2_img5.png', 'img/off2_img6.png',
+    ],
+    isPremium: true,
+    location: {
+      'latitude': 48.9934103943508,
+      'longitude': 2.49880066406198,
+      'zoom': 10,
+    },
+    maxAdults: 2,
+    previewImage: 'img/apartment-02.jpg',
+    price: 220,
+    rating: 6.8,
+    title: 'Paris 2nd hotel title',
+    type: 'Hostel',
+  },
+
 ];

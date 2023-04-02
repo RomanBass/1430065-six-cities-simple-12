@@ -1,16 +1,13 @@
 import CardList from '../../components/card-list/card-list';
 import Logo from '../../components/logo/logo';
-import Tabs from '../../components/tabs/tabs';
+import Tabs from '../../components/cities-list/cities-list';
 import { offers } from '../../mocks/offers';
 import {useState} from 'react';
 import Map from '../../components/map/map';
 import {Offer} from '../../types/offer';
+import { useAppSelector } from '../../hooks';
 
-type MainScreenProps = {
-  rentalOffersNumber: number;
-}
-
-function Main({ rentalOffersNumber }: MainScreenProps): JSX.Element {
+function Main(): JSX.Element {
 
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(undefined);
 
@@ -18,6 +15,9 @@ function Main({ rentalOffersNumber }: MainScreenProps): JSX.Element {
     const currentOffer = offers.find((offer) => offer.id === listCardId);
     setSelectedOffer(currentOffer);
   };
+
+  const offersBySelectedCity = useAppSelector((state) => state.offersList);
+  const activeCity = useAppSelector((state) => state.activeCity);
 
   return (
     <div className="page page--gray page--main">
@@ -53,7 +53,7 @@ function Main({ rentalOffersNumber }: MainScreenProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{rentalOffersNumber} places to stay in Amsterdam</b>
+              <b className="places__found">{offersBySelectedCity.length} places to stay in {activeCity}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -70,11 +70,11 @@ function Main({ rentalOffersNumber }: MainScreenProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <CardList offers={offers} setActiveCard={onListCardHover}/>
+                <CardList setActiveCard={onListCardHover} propertyId={null}/>
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"><Map offer={offers[0]} offers={offers} selectedOffer={selectedOffer}/></section>
+              <section className="cities__map map"><Map selectedOffer={selectedOffer}/></section>
             </div>
           </div>
         </div>
