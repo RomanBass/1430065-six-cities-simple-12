@@ -26,7 +26,7 @@ function Property({ offers, reviews }: PropertyProps): JSX.Element {
     const currentOffer = offers.find((offer) => offer.id === +id);
 
     if (!currentOffer) {
-      return <Navigate to='*' />;
+      return <Navigate to='*' replace/>;
     }
     const renderImages = currentOffer.images.map((image) =>
       (
@@ -155,7 +155,7 @@ function Property({ offers, reviews }: PropertyProps): JSX.Element {
       </div>
     );
   } else {
-    return <Navigate to='*' />;
+    return <Navigate to='*' replace />;
   }
 }
 
