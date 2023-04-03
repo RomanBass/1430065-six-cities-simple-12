@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeSortingOption } from '../../store/action';
+import { changeSortingOption, sortOffers } from '../../store/action';
 
 const sortingOptions: string[] =
 ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];
@@ -13,6 +13,7 @@ function SortingOptions(): JSX.Element {
       onClick={(evt) => {
         evt.preventDefault();
         dispatch(changeSortingOption(option));
+        dispatch(sortOffers(option));
       }}
       className={`places__option ${activeSortingOption === option ? 'places__option--active' : ''}`}
       tabIndex={0}

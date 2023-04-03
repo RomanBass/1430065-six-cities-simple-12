@@ -7,3 +7,5 @@ export const fillOffers = createAction('fillOffers', (city: string) => ({payload
 export const changeSortingOption =
 createAction('changeSortingOption', (sortingOption: string) => ({payload: sortingOption}));
 
+export const sortOffers =
+createAction('sortOffers', (sortingOption: string) => ({payload: sortingOption}));

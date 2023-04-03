@@ -1,5 +1,6 @@
 import Card from '../card/card';
 import {useAppSelector} from '../../hooks';
+import { sliceParameterToDuplicateArray } from '../../const';
 
 type CardListProps = {
   setActiveCard: (arg: number| null) => void;
@@ -8,10 +9,23 @@ type CardListProps = {
 
 function CardList({setActiveCard, propertyId}: CardListProps): JSX.Element {
   const offersBySelectedCity = useAppSelector((state) => state.offersList);
-  let offersForList = offersBySelectedCity;
+  const activeSortingOption = useAppSelector((state) => state.activeSortingOption);
+  let offersForList = offersBySelectedCity.slice(sliceParameterToDuplicateArray);
 
   if (propertyId) {
     offersForList = offersBySelectedCity.filter((offer) => offer.id !== propertyId);
+  }
+
+  if (activeSortingOption === 'Price: high to low') {
+    offersForList.sort((a,b) => b.price - a.price);
+  }
+
+  if (activeSortingOption === 'Price: low to high') {
+    offersForList.sort((a,b) => a.price - b.price);
+  }
+
+  if (activeSortingOption === 'Top rated first') {
+    offersForList.sort((a,b) => b.rating - a.rating);
   }
 
   const OffersList = offersForList.map((offer) => <Card key={offer.id} offer={offer} setActiveCard={setActiveCard}/>);
