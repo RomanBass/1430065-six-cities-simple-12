@@ -9,3 +9,5 @@ createAction('changeSortingOption', (sortingOption: string) => ({payload: sortin
 
 export const sortOffers =
 createAction('sortOffers', (sortingOption: string) => ({payload: sortingOption}));
+
+export const setSortingMenuVisibility = createAction('setSortingMenuVisibility');
