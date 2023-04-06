@@ -37,3 +37,5 @@ export const sliceParameterToDuplicateArray = 0;
 
 export const sortingOptions: string[] =
 ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];
+
+export const emptyOffersArrayLength = 0;

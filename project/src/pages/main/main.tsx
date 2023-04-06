@@ -1,25 +1,12 @@
-import CardList from '../../components/card-list/card-list';
 import Logo from '../../components/logo/logo';
-import Tabs from '../../components/cities-list/cities-list';
-import { offers } from '../../mocks/offers';
-import {useState} from 'react';
-import Map from '../../components/map/map';
-import {Offer} from '../../types/offer';
+import CitiesList from '../../components/cities-list/cities-list';
 import { useAppSelector } from '../../hooks';
-import SortingOptions from '../../components/sorting-options/sorting-options';
-//import { setSortingMenuVisibility } from '../../store/action';
+import CitiesSection from '../../components/cities-section/cities-section';
+import { emptyOffersArrayLength } from '../../const';
 
 function Main(): JSX.Element {
 
-  const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(undefined);
-
-  const onListCardHover = (listCardId: number | null) => {
-    const currentOffer = offers.find((offer) => offer.id === listCardId);
-    setSelectedOffer(currentOffer);
-  };
-
   const offersBySelectedCity = useAppSelector((state) => state.offersList);
-  const activeCity = useAppSelector((state) => state.activeCity);
   // const isSortingMenuVisible = useAppSelector((state) => state.isSortingMenuVisible);
   // const dispatch = useAppDispatch();
 
@@ -55,25 +42,14 @@ function Main(): JSX.Element {
           </div>
         </div>
       </header>
-      <Tabs />
-      <main className="page__main page__main--index">
+      <CitiesList />
+      <main className={`page__main page__main--index
+      ${offersBySelectedCity && offersBySelectedCity.length === emptyOffersArrayLength
+      ? 'page__main--index-empty'
+      : ''}`}
+      >
         <h1 className="visually-hidden">Cities</h1>
-
-        <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersBySelectedCity.length} places to stay in {activeCity}</b>
-              <SortingOptions/>
-              <div className="cities__places-list places__list tabs__content">
-                <CardList setActiveCard={onListCardHover} propertyId={null}/>
-              </div>
-            </section>
-            <div className="cities__right-section">
-              <section className="cities__map map"><Map selectedOffer={selectedOffer}/></section>
-            </div>
-          </div>
-        </div>
+        <CitiesSection/>
       </main>
     </div>
   );
