@@ -1,8 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeSortingOption, sortOffers, setSortingMenuVisibility } from '../../store/action';
-
-const sortingOptions: string[] =
-['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];
+import { sortingOptions } from '../../const';
 
 function SortingOptions(): JSX.Element {
   const activeSortingOption = useAppSelector((state) => state.activeSortingOption);
@@ -21,7 +19,6 @@ function SortingOptions(): JSX.Element {
     >{option}
     </li>
   ));
-
 
   return (
     <form className="places__sorting" action="#" method="get">

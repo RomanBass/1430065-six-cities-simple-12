@@ -7,6 +7,7 @@ import Map from '../../components/map/map';
 import {Offer} from '../../types/offer';
 import { useAppSelector } from '../../hooks';
 import SortingOptions from '../../components/sorting-options/sorting-options';
+//import { setSortingMenuVisibility } from '../../store/action';
 
 function Main(): JSX.Element {
 
@@ -19,9 +20,17 @@ function Main(): JSX.Element {
 
   const offersBySelectedCity = useAppSelector((state) => state.offersList);
   const activeCity = useAppSelector((state) => state.activeCity);
+  // const isSortingMenuVisible = useAppSelector((state) => state.isSortingMenuVisible);
+  // const dispatch = useAppDispatch();
 
   return (
-    <div className="page page--gray page--main">
+    <div className="page page--gray page--main"
+      // onClick={(evt) => {
+      //   evt.stopPropagation();
+      //   if (isSortingMenuVisible) {dispatch(setSortingMenuVisibility());}
+      // }}
+    // eslint-disable-next-line react/jsx-closing-bracket-location
+    >
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
