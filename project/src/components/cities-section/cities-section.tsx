@@ -1,23 +1,23 @@
-import { offers } from '../../mocks/offers';
 import { useState } from 'react';
 import { Offer } from '../../types/offer';
 import { useAppSelector } from '../../hooks';
 import SortingOptions from '../sorting-options/sorting-options';
 import CardList from '../card-list/card-list';
 import Map from '../map/map';
+import { emptyOffersArrayLength } from '../../const';
 
 function CitiesSection(): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(undefined);
-
-  const onListCardHover = (listCardId: number | null) => {
-    const currentOffer = offers.find((offer) => offer.id === listCardId);
-    setSelectedOffer(currentOffer);
-  };
-
   const offersBySelectedCity = useAppSelector((state) => state.offersList);
   const activeCity = useAppSelector((state) => state.activeCity);
 
-  if (offersBySelectedCity && offersBySelectedCity.length > 0) {
+  const onListCardHover = (listCardId: number | null) => {
+    const currentOffer = offersBySelectedCity.find((offer) => offer.id === listCardId);
+    setSelectedOffer(currentOffer);
+  };
+
+
+  if (offersBySelectedCity && offersBySelectedCity.length > emptyOffersArrayLength) {
     return (
       <div className="cities">
         <div className="cities__places-container container">
