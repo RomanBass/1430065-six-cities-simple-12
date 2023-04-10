@@ -4,15 +4,15 @@ import { AppRoute } from '../../const';
 import Login from '../../pages/login/login';
 import Property from '../../pages/property/property';
 import NotFound from '../not-found/not-found';
-import { Offers } from '../../types/offer';
 import { Reviews } from '../../types/review';
+import { useAppSelector } from '../../hooks';
 
 type AppScreenProps = {
-  offers: Offers;
   reviews: Reviews;
 }
 
-function App({offers, reviews }: AppScreenProps): JSX.Element {
+function App({reviews }: AppScreenProps): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
   return (
     <BrowserRouter>
       <Routes>

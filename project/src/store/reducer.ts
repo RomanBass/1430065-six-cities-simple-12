@@ -1,29 +1,35 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { offers } from '../mocks/offers';
 import { Offers } from '../types/offer';
-import { changeCity, fillOffers, changeSortingOption, sortOffers, setSortingMenuVisibility } from './action';
+import { changeCity, fillOffers, changeSortingOption, sortOffers,
+  setSortingMenuVisibility, loadOffers } from './action';
 
 type InitialState = {
   activeCity: string;
   offersList: Offers;
   activeSortingOption: string;
   isSortingMenuVisible: boolean;
+  offers: Offers;
 }
 
 const initialState: InitialState = {
   activeCity: 'Paris',
-  offersList: offers.filter((offer) => offer.city.name === 'Paris'),
+  offersList: [],
   activeSortingOption: 'Popular',
   isSortingMenuVisible: false,
+  offers: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
+    .addCase(loadOffers, (state, action) => {
+      state.offers = action.payload;
+      state.offersList = state.offers.filter((offer) => offer.city.name === initialState.activeCity);
+    })
     .addCase(changeCity, (state, action) => {
       state.activeCity = action.payload;
     })
     .addCase(fillOffers, (state, action) => {
-      state.offersList = offers.filter((offer) => offer.city.name === action.payload);
+      state.offersList = state.offers.filter((offer) => offer.city.name === action.payload);
     })
     .addCase(changeSortingOption, (state, action) => {
       state.activeSortingOption = action.payload;
