@@ -39,3 +39,9 @@ export const sortingOptions: string[] =
 ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];
 
 export const emptyOffersArrayLength = 0;
+
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  UnKnown = 'UNKNOWN'
+}
