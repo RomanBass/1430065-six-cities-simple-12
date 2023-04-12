@@ -1,11 +1,31 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeSortingOption, sortOffers, setSortingMenuVisibility } from '../../store/action';
 import { sortingOptions } from '../../const';
+import { useRef, useEffect, RefObject } from 'react';
 
 function SortingOptions(): JSX.Element {
   const activeSortingOption = useAppSelector((state) => state.activeSortingOption);
   const isSortingMenuVisible = useAppSelector((state) => state.isSortingMenuVisible);
   const dispatch = useAppDispatch();
+  const noSortMenuAreaRef: RefObject<HTMLSpanElement> = useRef(null);
+
+  useEffect(() => {
+    const closeSortMenu = (evt: MouseEvent) => {
+      if (!noSortMenuAreaRef.current || !(evt.target instanceof HTMLElement)) {
+        return;
+      }
+
+      if (!noSortMenuAreaRef.current.contains(evt.target) && isSortingMenuVisible) {
+        dispatch(setSortingMenuVisibility());
+      }
+    };
+
+    document.addEventListener('click', closeSortMenu);
+
+    return () => {
+      document.removeEventListener('click', closeSortMenu);
+    };
+  }, [dispatch, isSortingMenuVisible]);
 
   const SortingOptionsList = sortingOptions.map((option) => (
     <li key={option}
@@ -30,6 +50,7 @@ function SortingOptions(): JSX.Element {
         }}
         className="places__sorting-type"
         tabIndex={0}
+        ref={noSortMenuAreaRef}
       >
         Popular
         <svg className="places__sorting-arrow" width="7" height="4">
