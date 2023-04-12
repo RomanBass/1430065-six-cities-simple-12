@@ -14,3 +14,5 @@ createAction('sortOffers', (sortingOption: string) => ({payload: sortingOption})
 export const setSortingMenuVisibility = createAction('setSortingMenuVisibility');
 
 export const loadOffers = createAction<Offers>('data/loadOffers');
+
+export const setDataLoadingStatus = createAction<boolean>('data/setDataLoadingStatus');
