@@ -2,12 +2,11 @@ import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { Offers } from '../types/offer';
-import { loadOffers, requireAuthorization, setDataLoadingStatus } from './action';
-import { AuthorizationStatus } from '../const';
-// import { AuthData } from '../types/auth-data';
-// import { UserData } from '../types/user-data';
-// import { saveToken } from '../services/token';
-// import { redirect } from 'react-router-dom';
+import { loadOffers, requireAuthorization, setDataLoadingStatus, redirectToRoute } from './action';
+import { AppRoute, AuthorizationStatus } from '../const';
+import { AuthData } from '../types/auth-data';
+import { UserData } from '../types/user-data';
+import { dropToken, saveToken } from '../services/token';
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -39,16 +38,29 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   },
 );
 
-// export const loginAction = createAsyncThunk<void, AuthData, {
-//   dispatch: AppDispatch;
-//   state: State;
-//   extra: AxiosInstance;
-// }>(
-//   'user/login',
-//   async ({login: email, password}, {dispatch, extra: api}) => {
-//     const {data} = await api.post<UserData>('/login', {email, password});
-//     saveToken(data.token);
-//     dispatch(requireAuthorization(AuthorizationStatus.Auth));
-//     dispatch(redirectTo)
-//   },
-// );
+export const loginAction = createAsyncThunk<void, AuthData, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'user/login',
+  async ({login: email, password}, {dispatch, extra: api}) => {
+    const {data} = await api.post<UserData>('/login', {email, password});
+    saveToken(data.token);
+    dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    dispatch(redirectToRoute(AppRoute.Root));
+  },
+);
+
+export const logoutAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'user/logout',
+  async (_arg, {dispatch, extra: api}) => {
+    await api.delete('/logout');
+    dropToken();
+    dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+  }
+);
