@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
-import { AuthorizationStatus } from '../../const';
-import { useAppSelector } from '../../hooks';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { logoutAction } from '../../store/api-actions';
 
 function SigningArea(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const dispatch = useAppDispatch();
 
   if (authorizationStatus === AuthorizationStatus.Auth) {
     return (
@@ -15,9 +17,16 @@ function SigningArea(): JSX.Element {
           </div>
         </li>
         <li className="header__nav-item">
-          <a className="header__nav-link" href="/">
+          <Link
+            onClick={(evt) => {
+              evt.preventDefault();
+              dispatch(logoutAction());
+            }}
+            className="header__nav-link"
+            to={AppRoute.Root}
+          >
             <span className="header__signout">Sign out</span>
-          </a>
+          </Link>
         </li>
       </ul>
     );
@@ -25,7 +34,7 @@ function SigningArea(): JSX.Element {
     return (
       <ul className="header__nav-list">
         <li className="header__nav-item user">
-          <Link className="header__nav-link header__nav-link--profile" to="/login">
+          <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Login}>
             <div className="header__avatar-wrapper user__avatar-wrapper"></div>
             <span className="header__login">Sign in</span>
           </Link>

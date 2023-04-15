@@ -8,6 +8,7 @@ import ReviewsList from '../../components/reviews-list/reviews-list';
 import Map from '../../components/map/map';
 import CardList from '../../components/card-list/card-list';
 import {useState} from 'react';
+import SigningArea from '../../components/sign-area/sign-area';
 
 type PropertyProps = {
   offers: Offers;
@@ -49,19 +50,7 @@ function Property({ offers, reviews }: PropertyProps): JSX.Element {
                 <Logo />
               </div>
               <nav className="header__nav">
-                <ul className="header__nav-list">
-                  <li className="header__nav-item user">
-                    <div className="header__nav-profile">
-                      <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    </div>
-                  </li>
-                  <li className="header__nav-item">
-                    <a className="header__nav-link" href="/">
-                      <span className="header__signout">Sign out</span>
-                    </a>
-                  </li>
-                </ul>
+                <SigningArea/>
               </nav>
             </div>
           </div>
