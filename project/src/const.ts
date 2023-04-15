@@ -45,3 +45,5 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   UnKnown = 'UNKNOWN'
 }
+
+export const PASSWORD_REGEX = /(?=.*?[0-9])(?=.*?[A-Za-z]).+/;

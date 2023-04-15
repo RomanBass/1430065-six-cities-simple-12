@@ -2,9 +2,10 @@ import Logo from '../../components/logo/logo';
 import { FormEvent, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute, AuthorizationStatus, PASSWORD_REGEX } from '../../const';
 import { AuthData } from '../../types/auth-data';
 import { loginAction } from '../../store/api-actions';
+import { toast } from 'react-toastify';
 
 function Login(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -27,11 +28,13 @@ function Login(): JSX.Element {
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (loginRef.current !== null && passwordRef.current !== null) {
+    if (loginRef.current !== null && passwordRef.current !== null && PASSWORD_REGEX.test(passwordRef.current.value)) {
       onSubmit({
         login: loginRef.current.value,
         password: passwordRef.current.value,
       });
+    } else {
+      toast.warn('Валидый пароль включает и буквы и цифры.');
     }
   };
 
