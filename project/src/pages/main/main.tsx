@@ -4,6 +4,8 @@ import { useAppSelector } from '../../hooks';
 import CitiesSection from '../../components/cities-section/cities-section';
 import { emptyOffersArrayLength } from '../../const';
 import LoadingScreen from '../loading-screen/loading-screen';
+import SigningArea from '../../components/sign-area/sign-area';
+import { Helmet } from 'react-helmet-async';
 
 function Main(): JSX.Element {
 
@@ -18,6 +20,9 @@ function Main(): JSX.Element {
 
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>6 Cities</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
@@ -25,19 +30,7 @@ function Main(): JSX.Element {
               <Logo />
             </div>
             <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <div className="header__nav-profile">
-                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </div>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="/">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
+              <SigningArea/>
             </nav>
           </div>
         </div>

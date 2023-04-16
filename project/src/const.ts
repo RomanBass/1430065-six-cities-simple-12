@@ -5,6 +5,13 @@ export enum AppRoute {
   Offer = 'offer/:id'
 }
 
+export enum APIRoute {
+  Offers = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
+  Reviews = '/comments'
+}
+
 export const ratingList: { starNumber: number; type: string }[] = [
   { starNumber: 5, type: 'perfect' },
   { starNumber: 4, type: 'good' },
@@ -39,3 +46,11 @@ export const sortingOptions: string[] =
 ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];
 
 export const emptyOffersArrayLength = 0;
+
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  UnKnown = 'UNKNOWN'
+}
+
+export const PASSWORD_REGEX = /(?=.*?[0-9])(?=.*?[A-Za-z]).+/;
