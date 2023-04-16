@@ -9,6 +9,7 @@ import Map from '../../components/map/map';
 import CardList from '../../components/card-list/card-list';
 import {useState} from 'react';
 import SigningArea from '../../components/sign-area/sign-area';
+import { AppRoute } from '../../const';
 
 type PropertyProps = {
   offers: Offers;
@@ -27,7 +28,7 @@ function Property({ offers, reviews }: PropertyProps): JSX.Element {
     const currentOffer = offers.find((offer) => offer.id === +id);
 
     if (!currentOffer) {
-      return <Navigate to='*' replace/>;
+      return <Navigate to={AppRoute.WrongPath} replace/>;
     }
     const renderImages = currentOffer.images.map((image) =>
       (
@@ -144,7 +145,7 @@ function Property({ offers, reviews }: PropertyProps): JSX.Element {
       </div>
     );
   } else {
-    return <Navigate to='*' replace />;
+    return <Navigate to={AppRoute.WrongPath} replace />;
   }
 }
 
