@@ -5,6 +5,13 @@ export enum AppRoute {
   Offer = 'offer/:id'
 }
 
+export enum APIRoute {
+  Offers = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
+  Reviews = '/comments'
+}
+
 export const ratingList: { starNumber: number; type: string }[] = [
   { starNumber: 5, type: 'perfect' },
   { starNumber: 4, type: 'good' },
