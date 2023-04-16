@@ -5,6 +5,7 @@ import CitiesSection from '../../components/cities-section/cities-section';
 import { emptyOffersArrayLength } from '../../const';
 import LoadingScreen from '../loading-screen/loading-screen';
 import SigningArea from '../../components/sign-area/sign-area';
+import { Helmet } from 'react-helmet-async';
 
 function Main(): JSX.Element {
 
@@ -19,6 +20,9 @@ function Main(): JSX.Element {
 
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>6 Cities</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">

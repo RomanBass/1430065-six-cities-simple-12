@@ -10,6 +10,7 @@ import CardList from '../../components/card-list/card-list';
 import {useState} from 'react';
 import SigningArea from '../../components/sign-area/sign-area';
 import { AppRoute } from '../../const';
+import { Helmet } from 'react-helmet-async';
 
 type PropertyProps = {
   offers: Offers;
@@ -44,6 +45,9 @@ function Property({ offers, reviews }: PropertyProps): JSX.Element {
 
     return (
       <div className="page">
+        <Helmet>
+          <title>6 Cities: property</title>
+        </Helmet>
         <header className="header">
           <div className="container">
             <div className="header__wrapper">

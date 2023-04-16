@@ -6,6 +6,7 @@ import { AppRoute, AuthorizationStatus, PASSWORD_REGEX } from '../../const';
 import { AuthData } from '../../types/auth-data';
 import { loginAction } from '../../store/api-actions';
 import { toast } from 'react-toastify';
+import { Helmet } from 'react-helmet-async';
 
 function Login(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -40,6 +41,9 @@ function Login(): JSX.Element {
 
   return (
     <div className="page page--gray page--login">
+      <Helmet>
+        <title>6 Cities: authorization</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
