@@ -5,6 +5,7 @@ import { logoutAction } from '../../store/api-actions';
 
 function SigningArea(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const userData = useAppSelector((state) => state.userData);
   const dispatch = useAppDispatch();
 
   if (authorizationStatus === AuthorizationStatus.Auth) {
@@ -12,8 +13,15 @@ function SigningArea(): JSX.Element {
       <ul className="header__nav-list">
         <li className="header__nav-item user">
           <div className="header__nav-profile">
-            <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-            <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+            <div
+              className="header__avatar-wrapper user__avatar-wrapper"
+              style={{
+                backgroundImage: `url(${userData?.avatarUrl ?? '.img/avatar.svg'})`,
+                borderRadius: '50%'
+              }}
+            >
+            </div>
+            <span className="header__user-name user__name">{userData?.email}</span>
           </div>
         </li>
         <li className="header__nav-item">
