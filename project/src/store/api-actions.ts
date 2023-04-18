@@ -1,8 +1,9 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
-import { Offers } from '../types/offer';
-import { loadOffers, requireAuthorization, setDataLoadingStatus, redirectToRoute, getUserData } from './action';
+import { Offers, Offer } from '../types/offer';
+import { loadOffers, requireAuthorization, setDataLoadingStatus, redirectToRoute,
+  getUserData, loadParticularOffer, setParticularOfferLoadingStatus } from './action';
 import { AppRoute, AuthorizationStatus, APIRoute } from '../const';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
@@ -19,6 +20,24 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
     const {data} = await api.get<Offers>(APIRoute.Offers);
     dispatch(loadOffers(data));
     dispatch(setDataLoadingStatus(false));
+  }
+);
+
+export const fetchParticularOfferAction = createAsyncThunk<void, number, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchParticularOffer',
+  async (id, {dispatch, extra: api}) => {
+    try {
+      dispatch(setParticularOfferLoadingStatus(true));
+      const {data} = await api.get<Offer>(`${APIRoute.Offers}/${id}`);
+      dispatch(loadParticularOffer(data));
+      dispatch(setParticularOfferLoadingStatus(false));
+    } catch {
+      dispatch(redirectToRoute(AppRoute.WrongPath));
+    }
   }
 );
 

@@ -7,30 +7,48 @@ import {convertMarkToPercents} from '../../utils';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Map from '../../components/map/map';
 import CardList from '../../components/card-list/card-list';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import SigningArea from '../../components/sign-area/sign-area';
 import { AppRoute } from '../../const';
 import { Helmet } from 'react-helmet-async';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchParticularOfferAction } from '../../store/api-actions';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 type PropertyProps = {
   offers: Offers;
   reviews: Reviews;
 }
+
 function Property({ offers, reviews }: PropertyProps): JSX.Element {
   const { id } = useParams();
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(undefined);
+  const dispatch = useAppDispatch();
 
   const onListCardHover = (listCardId: number | null) => {
-    const currentOffer = offers.find((offer) => offer.id === listCardId);
-    setSelectedOffer(currentOffer);
+    const hoveredOffer = offers.find((offer) => offer.id === listCardId);
+    setSelectedOffer(hoveredOffer);
   };
 
-  if (id && Array.isArray(offers)) {
-    const currentOffer = offers.find((offer) => offer.id === +id);
+  useEffect(() => {
+    dispatch(fetchParticularOfferAction(Number(id)));
+  }, [dispatch, id]);
 
-    if (!currentOffer) {
-      return <Navigate to={AppRoute.WrongPath} replace/>;
-    }
+  const currentOffer = useAppSelector((state) => state.particularOffer);
+  const isParticularOfferLoading = useAppSelector((state) => state.isParticularOfferLoading);
+
+
+  if (isParticularOfferLoading) {
+    return <LoadingScreen/>;
+  }
+
+  if (!currentOffer) {
+    return <Navigate to={AppRoute.WrongPath} replace/>;
+  }
+
+  if (id) {
+    //const currentOffer = offers.find((offer) => offer.id === +id);
+
     const renderImages = currentOffer.images.map((image) =>
       (
         <div key={image} className="property__image-wrapper">
