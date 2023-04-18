@@ -9,7 +9,8 @@ export enum APIRoute {
   Offers = '/hotels',
   Login = '/login',
   Logout = '/logout',
-  Reviews = '/comments'
+  Reviews = '/comments',
+  Nearby = 'nearby'
 }
 
 export const ratingList: { starNumber: number; type: string }[] = [

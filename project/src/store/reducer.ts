@@ -2,7 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { Offers, Offer } from '../types/offer';
 import { changeCity, fillOffers, changeSortingOption, sortOffers,
   setSortingMenuVisibility, loadOffers, setDataLoadingStatus, requireAuthorization,
-  getUserData, loadParticularOffer, setParticularOfferLoadingStatus } from './action';
+  getUserData, loadParticularOffer, setParticularOfferLoadingStatus, loadNearbyOffers } from './action';
 import { AuthorizationStatus } from '../const';
 import { UserData } from '../types/user-data';
 
@@ -17,6 +17,7 @@ type InitialState = {
   userData: UserData | null;
   particularOffer: Offer | null;
   isParticularOfferLoading: boolean;
+  nearbyOffers: Offers;
 }
 
 const initialState: InitialState = {
@@ -30,6 +31,7 @@ const initialState: InitialState = {
   userData: null,
   particularOffer: null,
   isParticularOfferLoading: true,
+  nearbyOffers: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -40,6 +42,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadParticularOffer, (state, action) => {
       state.particularOffer = action.payload;
+    })
+    .addCase(loadNearbyOffers, (state, action) => {
+      state.nearbyOffers = action.payload;
     })
     .addCase(changeCity, (state, action) => {
       state.activeCity = action.payload;

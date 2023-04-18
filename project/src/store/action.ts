@@ -26,7 +26,8 @@ export const redirectToRoute = createAction<AppRoute>('redirectToRoute');
 export const getUserData =
 createAction('user/loadUserData', (userData: UserData) => ({payload: userData}));
 
-
 export const loadParticularOffer = createAction<Offer>('data/loadParticularOffer');
 
 export const setParticularOfferLoadingStatus = createAction<boolean>('data/setParticularOfferLoadingStatus');
+
+export const loadNearbyOffers = createAction<Offers>('data/loadNearbyOffers');
