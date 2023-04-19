@@ -2,6 +2,7 @@ import { createAction} from '@reduxjs/toolkit';
 import { AuthorizationStatus, AppRoute } from '../const';
 import { Offers, Offer } from '../types/offer';
 import { UserData } from '../types/user-data';
+import { Reviews } from '../types/review';
 
 export const changeCity = createAction('changeCity', (city: string) => ({payload: city}));
 
@@ -31,3 +32,5 @@ export const loadParticularOffer = createAction<Offer>('data/loadParticularOffer
 export const setParticularOfferLoadingStatus = createAction<boolean>('data/setParticularOfferLoadingStatus');
 
 export const loadNearbyOffers = createAction<Offers>('data/loadNearbyOffers');
+
+export const loadReviews = createAction<Reviews>('user/loadReviews');

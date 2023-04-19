@@ -2,7 +2,6 @@ import { Navigate, useParams } from 'react-router-dom';
 import Form from '../../components/form/form';
 import Logo from '../../components/logo/logo';
 import { Offers, Offer } from '../../types/offer';
-import { Reviews } from '../../types/review';
 import { convertMarkToPercents } from '../../utils';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Map from '../../components/map/map';
@@ -12,15 +11,14 @@ import SigningArea from '../../components/sign-area/sign-area';
 import { AppRoute } from '../../const';
 import { Helmet } from 'react-helmet-async';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchNearbyOffersAction, fetchParticularOfferAction } from '../../store/api-actions';
+import { fetchNearbyOffersAction, fetchParticularOfferAction, fetchReviewsAction } from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
 
 type PropertyProps = {
   offers: Offers;
-  reviews: Reviews;
 }
 
-function Property({ offers, reviews }: PropertyProps): JSX.Element {
+function Property({ offers }: PropertyProps): JSX.Element {
   const { id } = useParams();
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(undefined);
   const dispatch = useAppDispatch();
@@ -33,11 +31,12 @@ function Property({ offers, reviews }: PropertyProps): JSX.Element {
   useEffect(() => {
     dispatch(fetchParticularOfferAction(Number(id)));
     dispatch(fetchNearbyOffersAction(Number(id)));
+    dispatch(fetchReviewsAction(Number(id)));
   }, [dispatch, id]);
 
   const currentOffer = useAppSelector((state) => state.particularOffer);
   const isParticularOfferLoading = useAppSelector((state) => state.isParticularOfferLoading);
-
+  const reviews = useAppSelector((state) => state.reviews);
 
   if (isParticularOfferLoading) {
     return <LoadingScreen />;
