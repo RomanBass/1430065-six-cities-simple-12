@@ -3,7 +3,7 @@ import { Offers, Offer } from '../types/offer';
 import { changeCity, fillOffers, changeSortingOption, sortOffers,
   setSortingMenuVisibility, loadOffers, setDataLoadingStatus, requireAuthorization,
   getUserData, loadParticularOffer, setParticularOfferLoadingStatus,
-  loadNearbyOffers, loadReviews } from './action';
+  loadNearbyOffers, loadReviews, setReviewUploadingStatus } from './action';
 import { AuthorizationStatus } from '../const';
 import { UserData } from '../types/user-data';
 import { Reviews } from '../types/review';
@@ -21,6 +21,7 @@ type InitialState = {
   isParticularOfferLoading: boolean;
   nearbyOffers: Offers;
   reviews: Reviews;
+  isReviewUploading: boolean;
 }
 
 const initialState: InitialState = {
@@ -36,6 +37,7 @@ const initialState: InitialState = {
   isParticularOfferLoading: true,
   nearbyOffers: [],
   reviews: [],
+  isReviewUploading: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -77,6 +79,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setParticularOfferLoadingStatus, (state, action) => {
       state.isParticularOfferLoading = action.payload;
+    })
+    .addCase(setReviewUploadingStatus, (state, action) => {
+      state.isReviewUploading = action.payload;
     })
     .addCase(getUserData, (state, action) => {
       state.userData = action.payload;

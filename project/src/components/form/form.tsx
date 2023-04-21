@@ -1,6 +1,6 @@
 import { useState, ChangeEvent, Fragment, FormEvent } from 'react';
 import { ratingList, initialReviewData, AuthorizationStatus } from '../../const';
-import { isReviewCorrect } from '../../utils';
+import { isReviewIncorrect } from '../../utils';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { uploadReviewAction } from '../../store/api-actions';
 
@@ -12,6 +12,7 @@ function Form({id}: FormProps): JSX.Element | null {
   const [formData, setFormData] = useState({ rating: initialReviewData.RATING, review: initialReviewData.REVIEW });
   const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isReviewUploading = useAppSelector((state) => state.isReviewUploading);
 
   if (authorizationStatus !== AuthorizationStatus.Auth) {
     return null;
@@ -32,12 +33,12 @@ function Form({id}: FormProps): JSX.Element | null {
           <Fragment key={ratingItem.starNumber}>
             <input
               checked={formData.rating === ratingItem.starNumber}
-
               className="form__rating-input visually-hidden"
               name="rating"
               value={ratingItem.starNumber}
               id={`${ratingItem.starNumber}-stars`}
               type="radio"
+              disabled={isReviewUploading}
             />
             <label htmlFor={`${ratingItem.starNumber}-stars`} className="reviews__rating-label form__rating-label" title={ratingItem.type}>
               <svg className="form__star-image" width="37" height="33">
@@ -53,18 +54,18 @@ function Form({id}: FormProps): JSX.Element | null {
   const onSubmitClick = (evt: FormEvent) => {
     evt.preventDefault();
     dispatch(uploadReviewAction({id: id, comment: formData.review, rating: formData.rating }));
+    setFormData({ rating: initialReviewData.RATING, review: initialReviewData.REVIEW });
   };
 
   return (
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
-
       {renderStars}
-
       <textarea className="reviews__textarea form__textarea" id="review" name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         onChange={changeReview}
         value={formData.review}
+        disabled={isReviewUploading}
       >
       </textarea>
       <div className="reviews__button-wrapper">
@@ -75,7 +76,7 @@ function Form({id}: FormProps): JSX.Element | null {
           className="reviews__submit form__submit button"
           type="submit"
           onClick={onSubmitClick}
-          disabled={isReviewCorrect(formData.review, formData.rating)}
+          disabled={isReviewIncorrect(formData.review, formData.rating) || isReviewUploading}
         >Submit
         </button>
       </div>

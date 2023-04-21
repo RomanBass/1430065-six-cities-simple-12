@@ -4,7 +4,7 @@ import { AppDispatch, State } from '../types/state';
 import { Offers, Offer } from '../types/offer';
 import { loadOffers, requireAuthorization, setDataLoadingStatus, redirectToRoute,
   getUserData, loadParticularOffer, setParticularOfferLoadingStatus,
-  loadNearbyOffers, loadReviews } from './action';
+  loadNearbyOffers, loadReviews, setReviewUploadingStatus } from './action';
 import { AppRoute, AuthorizationStatus, APIRoute } from '../const';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
@@ -74,8 +74,14 @@ export const uploadReviewAction = createAsyncThunk<void, NewReview, {
 }>(
   'data/uploadReview',
   async ({id, comment, rating}, {dispatch, extra: api}) => {
-    const { data } = await api.post<Reviews>(`${APIRoute.Reviews}/${id}`, {comment, rating});
-    dispatch(loadReviews(data));
+    try {
+      dispatch(setReviewUploadingStatus(true));
+      const { data } = await api.post<Reviews>(`${APIRoute.Reviews}/${id}`, {comment, rating});
+      dispatch(loadReviews(data));
+      dispatch(setReviewUploadingStatus(false));
+    } catch {
+      dispatch(setReviewUploadingStatus(false));
+    }
   }
 );
 

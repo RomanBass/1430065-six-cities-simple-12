@@ -34,3 +34,5 @@ export const setParticularOfferLoadingStatus = createAction<boolean>('data/setPa
 export const loadNearbyOffers = createAction<Offers>('data/loadNearbyOffers');
 
 export const loadReviews = createAction<Reviews>('user/loadReviews');
+
+export const setReviewUploadingStatus = createAction<boolean>('data/setReviewUploadingStatus');
