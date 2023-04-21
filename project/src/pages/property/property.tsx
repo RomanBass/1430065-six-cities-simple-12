@@ -144,7 +144,7 @@ function Property({ offers }: PropertyProps): JSX.Element {
                 <ul className="reviews__list">
                   <ReviewsList reviews={reviews} />
                 </ul>
-                <Form />
+                <Form id={+id}/>
               </section>
             </div>
           </div>

@@ -9,7 +9,7 @@ import { AppRoute, AuthorizationStatus, APIRoute } from '../const';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { dropToken, saveToken } from '../services/token';
-import { Reviews } from '../types/review';
+import { Reviews, NewReview } from '../types/review';
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -63,6 +63,18 @@ export const fetchReviewsAction = createAsyncThunk<void, number, {
   'data/loadReviews',
   async (id, {dispatch, extra: api}) => {
     const {data} = await api.get<Reviews>(`${APIRoute.Reviews}/${id}`);
+    dispatch(loadReviews(data));
+  }
+);
+
+export const uploadReviewAction = createAsyncThunk<void, NewReview, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/uploadReview',
+  async ({id, comment, rating}, {dispatch, extra: api}) => {
+    const { data } = await api.post<Reviews>(`${APIRoute.Reviews}/${id}`, {comment, rating});
     dispatch(loadReviews(data));
   }
 );

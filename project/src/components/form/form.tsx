@@ -1,9 +1,21 @@
-import { useState, ChangeEvent, Fragment } from 'react';
-import { ratingList, initialReviewData } from '../../const';
+import { useState, ChangeEvent, Fragment, FormEvent } from 'react';
+import { ratingList, initialReviewData, AuthorizationStatus } from '../../const';
 import { isReviewCorrect } from '../../utils';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { uploadReviewAction } from '../../store/api-actions';
 
-function Form(): JSX.Element {
+type FormProps = {
+  id: number;
+}
+
+function Form({id}: FormProps): JSX.Element | null {
   const [formData, setFormData] = useState({ rating: initialReviewData.RATING, review: initialReviewData.REVIEW });
+  const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+
+  if (authorizationStatus !== AuthorizationStatus.Auth) {
+    return null;
+  }
 
   const changeReview = (evt: ChangeEvent) => {
     setFormData({ ...formData, review: (evt.target as HTMLTextAreaElement).value });
@@ -38,6 +50,11 @@ function Form(): JSX.Element {
     </div>
   );
 
+  const onSubmitClick = (evt: FormEvent) => {
+    evt.preventDefault();
+    dispatch(uploadReviewAction({id: id, comment: formData.review, rating: formData.rating }));
+  };
+
   return (
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
@@ -54,7 +71,13 @@ function Form(): JSX.Element {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={isReviewCorrect(formData.review, formData.rating)}>Submit</button>
+        <button
+          className="reviews__submit form__submit button"
+          type="submit"
+          onClick={onSubmitClick}
+          disabled={isReviewCorrect(formData.review, formData.rating)}
+        >Submit
+        </button>
       </div>
     </form>
   );
