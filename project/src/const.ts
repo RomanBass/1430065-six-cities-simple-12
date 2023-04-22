@@ -55,3 +55,5 @@ export enum AuthorizationStatus {
 }
 
 export const PASSWORD_REGEX = /(?=.*?[0-9])(?=.*?[A-Za-z]).+/;
+
+export const TIMEOUT_SHOW_ERROR = 2000;

@@ -3,7 +3,7 @@ import { Offers, Offer } from '../types/offer';
 import { changeCity, fillOffers, changeSortingOption, sortOffers,
   setSortingMenuVisibility, loadOffers, setDataLoadingStatus, requireAuthorization,
   getUserData, loadParticularOffer, setParticularOfferLoadingStatus,
-  loadNearbyOffers, loadReviews, setReviewUploadingStatus } from './action';
+  loadNearbyOffers, loadReviews, setReviewUploadingStatus, setError } from './action';
 import { AuthorizationStatus } from '../const';
 import { UserData } from '../types/user-data';
 import { Reviews } from '../types/review';
@@ -22,6 +22,7 @@ type InitialState = {
   nearbyOffers: Offers;
   reviews: Reviews;
   isReviewUploading: boolean;
+  error: string | null;
 }
 
 const initialState: InitialState = {
@@ -38,6 +39,7 @@ const initialState: InitialState = {
   nearbyOffers: [],
   reviews: [],
   isReviewUploading: false,
+  error: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -77,6 +79,9 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
     })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
+    })
     .addCase(setParticularOfferLoadingStatus, (state, action) => {
       state.isParticularOfferLoading = action.payload;
     })
@@ -86,7 +91,6 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(getUserData, (state, action) => {
       state.userData = action.payload;
     });
-
 });
 
 export { reducer };

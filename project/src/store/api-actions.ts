@@ -4,12 +4,13 @@ import { AppDispatch, State } from '../types/state';
 import { Offers, Offer } from '../types/offer';
 import { loadOffers, requireAuthorization, setDataLoadingStatus, redirectToRoute,
   getUserData, loadParticularOffer, setParticularOfferLoadingStatus,
-  loadNearbyOffers, loadReviews, setReviewUploadingStatus } from './action';
-import { AppRoute, AuthorizationStatus, APIRoute } from '../const';
+  loadNearbyOffers, loadReviews, setReviewUploadingStatus, setError } from './action';
+import { AppRoute, AuthorizationStatus, APIRoute, TIMEOUT_SHOW_ERROR } from '../const';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { dropToken, saveToken } from '../services/token';
 import { Reviews, NewReview } from '../types/review';
+import { store } from '.';
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -128,4 +129,14 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     dropToken();
     dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
   }
+);
+
+export const clearErrorAction = createAsyncThunk(
+  'data/clearError',
+  () => {
+    setTimeout(
+      () => store.dispatch(setError(null)),
+      TIMEOUT_SHOW_ERROR,
+    );
+  },
 );

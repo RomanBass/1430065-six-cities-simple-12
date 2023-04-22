@@ -36,3 +36,5 @@ export const loadNearbyOffers = createAction<Offers>('data/loadNearbyOffers');
 export const loadReviews = createAction<Reviews>('user/loadReviews');
 
 export const setReviewUploadingStatus = createAction<boolean>('data/setReviewUploadingStatus');
+
+export const setError = createAction<string | null>('data/setError');
