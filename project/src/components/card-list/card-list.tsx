@@ -14,7 +14,6 @@ function CardList({setActiveCard, propertyId}: CardListProps): JSX.Element {
   const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
 
   if (propertyId) {
-    //offersForList = offersBySelectedCity.filter((offer) => offer.id !== propertyId);
     offersForList = nearbyOffers;
   }
 
