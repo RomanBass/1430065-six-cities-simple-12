@@ -9,7 +9,8 @@ export enum APIRoute {
   Offers = '/hotels',
   Login = '/login',
   Logout = '/logout',
-  Reviews = '/comments'
+  Reviews = '/comments',
+  Nearby = 'nearby'
 }
 
 export const ratingList: { starNumber: number; type: string }[] = [
@@ -54,3 +55,5 @@ export enum AuthorizationStatus {
 }
 
 export const PASSWORD_REGEX = /(?=.*?[0-9])(?=.*?[A-Za-z]).+/;
+
+export const TIMEOUT_SHOW_ERROR = 2000;
