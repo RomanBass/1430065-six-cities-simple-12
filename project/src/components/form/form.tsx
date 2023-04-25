@@ -32,7 +32,7 @@ function Form({id}: FormProps): JSX.Element | null {
         ratingList.map((ratingItem) => (
           <Fragment key={ratingItem.starNumber}>
             <input
-              checked={formData.rating === ratingItem.starNumber}
+              defaultChecked={formData.rating === ratingItem.starNumber}
               className="form__rating-input visually-hidden"
               name="rating"
               value={ratingItem.starNumber}
