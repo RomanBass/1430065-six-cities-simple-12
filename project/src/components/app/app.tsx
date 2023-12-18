@@ -1,4 +1,4 @@
-import Property from '../../pages/main/property/property';
+import Main from '../../pages/main/main';
 
 type AppScreenProps = {
   placesNumber: number;
@@ -6,7 +6,8 @@ type AppScreenProps = {
 
 function App({placesNumber}: AppScreenProps): JSX.Element {
   return (
-    <Property/>
+    <Main placesNumber={placesNumber}/>
+
   );
 }
 
